@@ -60,14 +60,25 @@ export default {
     };
   },
   created() {
-    console.log(this.$route.params);
+    this.init()
+  },
+  watch: {  //监听
+    $route(to, from) { //路由变化的方式 路由发生变化 方法执行
+      console.log('watch $route')
+      this.init()
+    }
+  },
+  methods: {
+    init(){
     //判断路径是否有id值来查看是否是修改页面
     if (this.$route.params && this.$route.params.id) {
       const id = this.$route.params.id;
       this.getInfo(id);
+    } else {
+      //清空表单
+      this.teacher = {}
     }
-  },
-  methods: {
+    },
     //根据讲师id查询
     getInfo(id) {
       teacher
